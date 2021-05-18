@@ -1,15 +1,17 @@
 package com.github.yjgbg.fun.excel;
 
 import lombok.experimental.UtilityClass;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 @UtilityClass
 public class API {
 	public Workbook Workbook(Sheet... sheets) {
-		final var res = new HSSFWorkbook();
+		final var res = new XSSFWorkbook();
 		Arrays.stream(sheets).forEachOrdered(sheet -> sheet.toSheet(res));
 		return res;
 	}
@@ -39,10 +41,23 @@ public class API {
 	}
 
 	public Cell Cell(String text) {
-		return Cell.create().setText(text);
+		return Cell.create().content(RichText.of(text));
+	}
+
+
+	public Cell Cell(RichText text) {
+		return Cell.create().content(text);
+	}
+
+	public Cell Cell(LocalDateTime dateTime) {
+		return Cell.create().content(dateTime);
+	}
+
+	public Cell Cell(LocalDate date,String fmt) {
+		return Cell.create().content(date,fmt);
 	}
 
 	public Cell Cell(int cellNum) {
-		return Cell.cell(cellNum);
+		return Cell.create(cellNum);
 	}
 }

@@ -1,5 +1,6 @@
 package com.github.yjgbg.fun.excel;
 
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.jetbrains.annotations.Contract;
 
@@ -20,7 +21,17 @@ public interface Font {
 		};
 	}
 
+	default Font setColor(IndexedColors color) {
+		final var that = this;
+		return workbook -> {
+			final var res = that.toFont(workbook);
+			res.setColor(color.getIndex());
+			return res;
+		};
+	}
+
 	static Font bold() {
 		return create().setBold(true);
+		// red("red"),bold("bold")
 	}
 }

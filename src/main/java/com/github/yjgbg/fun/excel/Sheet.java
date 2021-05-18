@@ -1,6 +1,5 @@
 package com.github.yjgbg.fun.excel;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
 
 public interface Sheet {
@@ -32,11 +31,5 @@ public interface Sheet {
 			row.toRow(res);
 			return res;
 		};
-	}
-
-	default Workbook asWorkbook() {
-		Workbook workbook = new HSSFWorkbook();
-		toSheet(workbook);
-		return workbook;
 	}
 }
